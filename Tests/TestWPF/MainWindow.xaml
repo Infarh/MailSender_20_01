@@ -1,0 +1,26 @@
+﻿<Window x:Class="TestWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="501" Width="872">
+    <Grid>
+        <Button Content="Send" Margin="315,214,0,227" Click="OnSendButtonClick"
+                HorizontalAlignment="Left" Width="59"/>
+        <TextBox x:Name="UserNameEdit" HorizontalAlignment="Left" VerticalAlignment="Top"
+                 Margin="171,158,0,0" Text="UserName" TextWrapping="Wrap" Width="120">
+            <TextBox.Effect>
+                <BlurEffect Radius="2"/>
+            </TextBox.Effect>
+        </TextBox>
+        <PasswordBox HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Name="PasswordEdit"
+                     Margin="427,165,0,0" Width="120" Password="Password"/>
+        <TextBlock Margin="170,132,0,0" Text="Имя пользователя" TextWrapping="Wrap"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Margin="432,132,0,0" Text="Пароль" TextWrapping="Wrap" Width="120"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
