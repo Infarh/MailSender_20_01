@@ -9,7 +9,7 @@ using System.Windows;
 namespace MailSender
 {
     /// <summary>
-    /// Логика взаимодействия для App.xaml
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
