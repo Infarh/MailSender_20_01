@@ -39,7 +39,7 @@
                                       ItemsSource="{x:Static data:TestData.Senders}"
                                       DisplayMemberPath="Name"
                                       SelectedIndex="0" IsEditable="True"/>
-                            <Button ToolTip="Добавить">
+                            <Button ToolTip="Добавить" Click="OnSenderEditClick">
                                 <Image Height="16" Source="Media\add.png"/>
                             </Button>
                             <Button ToolTip="Редактировать">
