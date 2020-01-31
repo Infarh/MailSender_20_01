@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:data="clr-namespace:MailSender.lib.Data;assembly=MailSender.lib"
+        xmlns:entities="clr-namespace:MailSender.lib.Entities;assembly=MailSender.lib"
         xmlns:l="clr-namespace:MailSender"
         mc:Ignorable="d"
         Title="Главное окно"
@@ -33,7 +35,10 @@
                     </Grid.RowDefinitions>
                     <ToolBarTray>
                         <ToolBar Header="Отправители">
-                            <ComboBox Width="150"/>
+                            <ComboBox Width="150" Name="SendersList"
+                                      ItemsSource="{x:Static data:TestData.Senders}"
+                                      DisplayMemberPath="Name"
+                                      SelectedIndex="0"/>
                             <Button ToolTip="Добавить">
                                 <Image Height="16" Source="Media\add.png"/>
                             </Button>
@@ -45,7 +50,22 @@
                             </Button>
                         </ToolBar>
                         <ToolBar Header="Сервера" Band="1" BandIndex="0">
-                            <ComboBox Width="150"/>
+                            <ComboBox Width="150" 
+                                      ItemsSource="{x:Static data:TestData.Servers}" 
+                                      SelectedIndex="0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="entities:Server">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Address}" Opacity="0.6">
+                                                <TextBlock.ToolTip>
+                                                    <TextBlock Text="{Binding Port, StringFormat=Port:{0}}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <Button ToolTip="Добавить">
                                 <fa:ImageAwesome Height="12" Icon="Plus" Foreground="DarkBlue"/>
                             </Button>
@@ -68,6 +88,9 @@
                             </Button>
                         </ToolBar>
                         <ToolBar>
+                            <!--<ToolBar.Resources>
+                                <entities:Sender x:Key="Test" Name="QWE" Address="ASD"/>
+                            </ToolBar.Resources>-->
                             <Button>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Перейти в планировщик"/>
@@ -75,6 +98,7 @@
                                                      Foreground="Blue"/>
                                 </StackPanel>
                             </Button>
+                            <!--<TextBlock Text="{Binding Source={StaticResource Test}}"/>-->
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Grid.Row="1" Header="Получатели писем">
