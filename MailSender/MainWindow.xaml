@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MailSender"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:l="clr-namespace:MailSender"
         mc:Ignorable="d"
         Title="Главное окно"
         Width="800" Height="600">
@@ -24,7 +25,69 @@
             <TextBlock Text="Готов к труду и обороне!"/>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Рассылка"></TabItem>
+            <TabItem Header="Рассылка" ToolTip="Управление рассылкой">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ToolBarTray>
+                        <ToolBar Header="Отправители">
+                            <ComboBox Width="150"/>
+                            <Button ToolTip="Добавить">
+                                <Image Height="16" Source="Media\add.png"/>
+                            </Button>
+                            <Button ToolTip="Редактировать">
+                                <Image Height="16" Source="Media\edit.png"/>
+                            </Button>
+                            <Button ToolTip="Удалить">
+                                <Image Height="16" Source="Media\remove.png"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar Header="Сервера" Band="1" BandIndex="0">
+                            <ComboBox Width="150"/>
+                            <Button ToolTip="Добавить">
+                                <fa:ImageAwesome Height="12" Icon="Plus" Foreground="DarkBlue"/>
+                            </Button>
+                            <Button ToolTip="Редактировать">
+                                <fa:ImageAwesome Height="12" Icon="Edit" Foreground="DarkMagenta"/>
+                            </Button>
+                            <Button ToolTip="Удалить">
+                                <fa:ImageAwesome Height="12" Icon="Trash" Foreground="Red"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar Header="Получатели" Band="1">
+                            <Button ToolTip="Добавить">
+                                <fa:ImageAwesome Height="12" Icon="Plus" Foreground="DarkBlue"/>
+                            </Button>
+                            <Button ToolTip="Редактировать">
+                                <fa:ImageAwesome Height="12" Icon="Edit" Foreground="DarkMagenta"/>
+                            </Button>
+                            <Button ToolTip="Удалить">
+                                <fa:ImageAwesome Height="12" Icon="Trash" Foreground="Red"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Перейти в планировщик"/>
+                                    <fa:ImageAwesome Height="12" Icon="ClockOutline" Margin="3,0,0,0"
+                                                     Foreground="Blue"/>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <GroupBox Grid.Row="1" Header="Получатели писем">
+                        <DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="id"/>
+                                <DataGridTextColumn Header="Имя" Width="*"/>
+                                <DataGridTextColumn Header="Адрес"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="Планировщик"></TabItem>
             <TabItem Header="Письма"></TabItem>
             <TabItem Header="Статистика"></TabItem>
