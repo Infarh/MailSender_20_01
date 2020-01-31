@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.lib.Data;assembly=MailSender.lib"
         xmlns:entities="clr-namespace:MailSender.lib.Entities;assembly=MailSender.lib"
         xmlns:l="clr-namespace:MailSender"
@@ -38,7 +38,7 @@
                             <ComboBox Width="150" Name="SendersList"
                                       ItemsSource="{x:Static data:TestData.Senders}"
                                       DisplayMemberPath="Name"
-                                      SelectedIndex="0"/>
+                                      SelectedIndex="0" IsEditable="True"/>
                             <Button ToolTip="Добавить">
                                 <Image Height="16" Source="Media\add.png"/>
                             </Button>
@@ -50,7 +50,7 @@
                             </Button>
                         </ToolBar>
                         <ToolBar Header="Сервера" Band="1" BandIndex="0">
-                            <ComboBox Width="150" 
+                            <ComboBox Width="150" Name="ServersList"
                                       ItemsSource="{x:Static data:TestData.Servers}" 
                                       SelectedIndex="0">
                                 <ComboBox.ItemTemplate>
@@ -67,24 +67,24 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <Button ToolTip="Добавить">
-                                <fa:ImageAwesome Height="12" Icon="Plus" Foreground="DarkBlue"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Plus" Foreground="DarkBlue"/>
                             </Button>
                             <Button ToolTip="Редактировать">
-                                <fa:ImageAwesome Height="12" Icon="Edit" Foreground="DarkMagenta"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Edit" Foreground="DarkMagenta"/>
                             </Button>
                             <Button ToolTip="Удалить">
-                                <fa:ImageAwesome Height="12" Icon="Trash" Foreground="Red"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Trash" Foreground="Red"/>
                             </Button>
                         </ToolBar>
                         <ToolBar Header="Получатели" Band="1">
                             <Button ToolTip="Добавить">
-                                <fa:ImageAwesome Height="12" Icon="Plus" Foreground="DarkBlue"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Plus" Foreground="DarkBlue"/>
                             </Button>
                             <Button ToolTip="Редактировать">
-                                <fa:ImageAwesome Height="12" Icon="Edit" Foreground="DarkMagenta"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Edit" Foreground="DarkMagenta"/>
                             </Button>
                             <Button ToolTip="Удалить">
-                                <fa:ImageAwesome Height="12" Icon="Trash" Foreground="Red"/>
+                                <fa:ImageAwesome Height="12" Icon="Solid_Trash" Foreground="Red"/>
                             </Button>
                         </ToolBar>
                         <ToolBar>
@@ -94,7 +94,7 @@
                             <Button>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Перейти в планировщик"/>
-                                    <fa:ImageAwesome Height="12" Icon="ClockOutline" Margin="3,0,0,0"
+                                    <fa:ImageAwesome Height="12" Icon="Solid_Clock" Margin="3,0,0,0"
                                                      Foreground="Blue"/>
                                 </StackPanel>
                             </Button>
@@ -102,11 +102,17 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Grid.Row="1" Header="Получатели писем">
-                        <DataGrid>
+                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}"
+                                  Name="RecipientsList"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  VerticalGridLinesBrush="Gray"
+                                  GridLinesVisibility="Vertical"
+                                  AlternatingRowBackground="LightGray">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="id"/>
-                                <DataGridTextColumn Header="Имя" Width="*"/>
-                                <DataGridTextColumn Header="Адрес"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
@@ -121,13 +127,13 @@
                             <StackPanel Margin="5">
                                 <Button HorizontalContentAlignment="Stretch">
                                     <DockPanel Margin="20,0">
-                                        <fa:ImageAwesome DockPanel.Dock="Right" Height="12" Icon="ClockOutline"/>
+                                        <fa:ImageAwesome DockPanel.Dock="Right" Height="12" Icon="Solid_Clock"/>
                                         <TextBlock HorizontalAlignment="Center">Запланировать</TextBlock>
                                     </DockPanel>
                                 </Button>
-                                <Button HorizontalContentAlignment="Stretch">
+                                <Button HorizontalContentAlignment="Stretch" Click="OnSendButtonClick">
                                     <DockPanel Margin="20,0">
-                                        <fa:ImageAwesome DockPanel.Dock="Right" Height="12" Icon="Send"/>
+                                        <fa:ImageAwesome DockPanel.Dock="Right" Height="12" Icon="Solid_ArrowAltCircleUp"/>
                                         <TextBlock HorizontalAlignment="Center">Отправить</TextBlock>
                                     </DockPanel>
                                 </Button>
@@ -193,10 +199,10 @@
                     <GroupBox Header="Выбранное письмо" Grid.Column="1">
                         <DockPanel>
                             <GroupBox DockPanel.Dock="Top" Header="Тема письма">
-                                <TextBox Text="Текст заголовка письма"/>
+                                <TextBox Text="Текст заголовка письма" Name="MailHeader"/>
                             </GroupBox>
                             <GroupBox Header="Текст письма">
-                                <TextBox TextWrapping="Wrap" AcceptsReturn="True">Текст тела письма</TextBox>
+                                <TextBox TextWrapping="Wrap" AcceptsReturn="True" Name="MailBody">Текст тела письма</TextBox>
                             </GroupBox>
                         </DockPanel>
                     </GroupBox>
