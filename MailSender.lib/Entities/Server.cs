@@ -9,7 +9,7 @@
 
         public int Port { get; set; }
 
-        public bool UseSSL { get; set; }
+        public bool UseSSL { get; set; } = true;
 
         public string Login { get; set; }
 
