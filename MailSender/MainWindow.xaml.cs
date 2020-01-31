@@ -1,28 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using MailSender.lib.Data;
+using MailSender.lib.Entities;
+using MailSender.lib.Service;
 
 namespace MailSender
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            //SendersList.ItemsSource = TestData.Senders;
+        }
+
+        private void OnSendButtonClick(object Sender, RoutedEventArgs E)
+        {
+            var recipient = RecipientsList.SelectedItem as Recipient;
+            var sender = SendersList.SelectedItem as Sender;
+            var server = ServersList.SelectedItem as Server;
+
+            if(recipient is null || server is null || sender is null) return;
+
+            var mail_sender = new lib.Services.DebugMailSender(server.Address, server.Port, server.UseSSL, server.Login, server.Password.Decode(3));
+
+            mail_sender.Send(MailHeader.Text, MailBody.Text, sender.Address, recipient.Address);
+        }
+
+        private void OnSenderEditClick(object Sender, RoutedEventArgs E)
+        {
+            var sender = SendersList.SelectedItem as Sender;
+            if (sender is null) return;
+
+            var dialog = new SenderEditor(sender, this);
+
+            if(dialog.ShowDialog() != true) return;
+
+            sender.Name = dialog.NameValue;
+            sender.Address = dialog.AddressValue;
         }
     }
 }
