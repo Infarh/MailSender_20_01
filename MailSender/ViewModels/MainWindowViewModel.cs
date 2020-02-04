@@ -7,12 +7,13 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MailSender.lib.Entities;
 using MailSender.lib.Services;
+using MailSender.lib.Services.Interfaces;
 
 namespace MailSender.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly RecipientsManager _RecipientsManager;
+        private readonly IRecipientsManager _RecipientsManager;
 
         private string _Title = "Рассыльщик почты";
 
@@ -46,7 +47,7 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(RecipientsManager RecipientsManager)
+        public MainWindowViewModel(IRecipientsManager RecipientsManager)
         {
             LoadRecipientsDataCommand = new RelayCommand(OnLoadRecipientsDataCommandExecuted, CanLoadRecipientsDataCommandExecute);
             SaveRecipientChangesCommand = new RelayCommand<Recipient>(OnSaveRecipientChangesCommandExecuted, CanSaveRecipientChangesCommandExecute);

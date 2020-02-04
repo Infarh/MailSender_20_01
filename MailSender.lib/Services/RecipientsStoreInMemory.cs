@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using MailSender.lib.Data;
 using MailSender.lib.Entities;
+using MailSender.lib.Services.Interfaces;
 
 namespace MailSender.lib.Services
 {
-    public class RecipientsStoreInMemory
+    public class RecipientsStoreInMemory : IRecipientsStore
     {
         public IEnumerable<Recipient> Get() => TestData.Recipients;
 
