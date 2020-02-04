@@ -10,21 +10,22 @@ namespace MailSender
         public MainWindow()
         {
             InitializeComponent();
+            //System.Windows.Input.CommandManager
 
             //SendersList.ItemsSource = TestData.Senders;
         }
 
         private void OnSendButtonClick(object Sender, RoutedEventArgs E)
         {
-            var recipient = RecipientsList.SelectedItem as Recipient;
-            var sender = SendersList.SelectedItem as Sender;
-            var server = ServersList.SelectedItem as Server;
+            //var recipient = RecipientsList.SelectedItem as Recipient;
+            //var sender = SendersList.SelectedItem as Sender;
+            //var server = ServersList.SelectedItem as Server;
 
-            if(recipient is null || server is null || sender is null) return;
+            //if(recipient is null || server is null || sender is null) return;
 
-            var mail_sender = new lib.Services.DebugMailSender(server.Address, server.Port, server.UseSSL, server.Login, server.Password.Decode(3));
+            //var mail_sender = new lib.Services.DebugMailSender(server.Address, server.Port, server.UseSSL, server.Login, server.Password.Decode(3));
 
-            mail_sender.Send(MailHeader.Text, MailBody.Text, sender.Address, recipient.Address);
+            //mail_sender.Send(MailHeader.Text, MailBody.Text, sender.Address, recipient.Address);
         }
 
         private void OnSenderEditClick(object Sender, RoutedEventArgs E)
