@@ -29,4 +29,8 @@
     <Resource Include="Media\remove.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
