@@ -104,7 +104,14 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Grid.Row="1" Header="Получатели писем">
-                        <view:RecipientsView/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <view:RecipientsView Grid.Column="0"/>
+                            <view:RecipientEditor Grid.Column="1"/>
+                        </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>
