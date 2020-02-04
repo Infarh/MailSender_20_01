@@ -8,7 +8,8 @@
         xmlns:entities="clr-namespace:MailSender.lib.Entities;assembly=MailSender.lib"
         xmlns:l="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="Главное окно"
+        Title="{Binding Title}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Width="800" Height="600">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
