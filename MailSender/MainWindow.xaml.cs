@@ -10,6 +10,7 @@ namespace MailSender
         public MainWindow()
         {
             InitializeComponent();
+            //System.Windows.Input.CommandManager
 
             //SendersList.ItemsSource = TestData.Senders;
         }
