@@ -103,7 +103,7 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Grid.Row="1" Header="Получатели писем">
-                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid ItemsSource="{Binding Recipients}"
                                   Name="RecipientsList"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
