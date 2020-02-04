@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MailSender.lib\MailSender.lib.csproj" />
+  </ItemGroup>
+
 </Project>

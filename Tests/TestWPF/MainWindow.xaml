@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TestWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="501" Width="872">
@@ -22,5 +23,6 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock Margin="432,132,0,0" Text="Пароль" TextWrapping="Wrap" Width="120"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <xctk:ColorPicker VerticalAlignment="Top" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="125" d:LayoutOverrides="HorizontalAlignment" Margin="46,32,0,0"/>
     </Grid>
 </Window>
