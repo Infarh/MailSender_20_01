@@ -4,10 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MailSender.Views"
+             xmlns:validation="clr-namespace:MailSender.Infrastructure.ValidationRules"
              mc:Ignorable="d" 
              DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-             d:DesignHeight="405.647" d:DesignWidth="259.446">
-    <Grid Margin="5">
+             d:DesignHeight="148.147" d:DesignWidth="259.446">
+    <Grid Margin="15" Validation.Error="OnDataValidationError">
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="3,5,0,5"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Right" Text="!"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="Red"
+                                           Margin="3,0"
+                                           VerticalAlignment="Center"
+                                           ToolTipService.BetweenShowDelay="0"
+                                           ToolTip="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=ErrorVisualElement}"/>
+                                <Border Padding="2" BorderBrush="Red" BorderThickness="3" CornerRadius="3">
+                                    <AdornedElementPlaceholder Name="ErrorVisualElement"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -22,9 +51,23 @@
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Name:"/>
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Address:"/>
 
-        <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True" Text="{Binding SelectedRecipient.Id}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRecipient.Name}" />
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRecipient.Address}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="False" 
+                 Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" 
+                 Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
+        <TextBox Grid.Column="1" Grid.Row="2">
+            <TextBox.Text>
+                <Binding Path="SelectedRecipient.Address" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <validation:RegExValidation Pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                                                    ErrorMessage="Неверный формат адреса электронной почты"/>
+                        <ExceptionValidationRule/>
+                        <DataErrorValidationRule/>
+                        <NotifyDataErrorValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <UniformGrid Rows="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" 
                      VerticalAlignment="Top" HorizontalAlignment="Center"
