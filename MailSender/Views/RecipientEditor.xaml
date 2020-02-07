@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MailSender.Views"
              mc:Ignorable="d" 
              DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-             d:DesignHeight="405.647" d:DesignWidth="259.446">
+             d:DesignHeight="116.147" d:DesignWidth="259.446">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

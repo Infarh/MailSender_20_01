@@ -38,7 +38,6 @@
                     <ToolBarTray>
                         <ToolBar Header="Отправители">
                             <ComboBox Width="150" Name="SendersList"
-                                      ItemsSource="{x:Static data:TestData.Senders}"
                                       DisplayMemberPath="Name"
                                       SelectedIndex="0" IsEditable="True"/>
                             <Button ToolTip="Добавить" Click="OnSenderEditClick">
@@ -53,7 +52,6 @@
                         </ToolBar>
                         <ToolBar Header="Сервера" Band="1" BandIndex="0">
                             <ComboBox Width="150" Name="ServersList"
-                                      ItemsSource="{x:Static data:TestData.Servers}" 
                                       SelectedIndex="0">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="entities:Server">
