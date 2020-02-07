@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using MailSender.lib.Entities.Base;
 
 namespace MailSender.lib.Entities
@@ -13,6 +14,8 @@ namespace MailSender.lib.Entities
             {
                 if(value == "Иванов321")
                     throw new ArgumentException("Иванов321 нам не подходит", nameof(value));
+                //Debug.Assert(value != "Иванов---");
+                //Trace.WriteLine("Сообщение в журнал!");
                 base.Name = value;
             }
         }

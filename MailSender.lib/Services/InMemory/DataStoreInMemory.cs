@@ -18,7 +18,7 @@ namespace MailSender.lib.Services.InMemory
 
         public int Create(T item)
         {
-            if(item is null) throw new ArgumentNullException(nameof(item));
+            if (item is null) throw new ArgumentNullException(nameof(item));
 
             if (_Items.Contains(item)) return item.Id;
             item.Id = _Items.Count == 0
