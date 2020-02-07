@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MailSender.lib.Data;
 using MailSender.lib.Entities;
 using MailSender.lib.Services.Interfaces;
 
-namespace MailSender.lib.Services
+namespace MailSender.lib.Services.InMemory
 {
     public class RecipientsStoreInMemory : IRecipientsStore
     {
