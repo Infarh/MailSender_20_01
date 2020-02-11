@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,25 @@ namespace TestConsole
         {
             var messages = Enumerable.Range(1, 100).Select(i => $"Message #{i}").ToArray();
 
+            //var result = new List<int>();
+            //var threads = messages.Select(m => new Thread(() => result.Add(m.Length))).ToArray();
+            //foreach (var thread in threads)
+            //    thread.Start();
+
+            //var bag = new ConcurrentBag<int>();
+            //var threads = messages.Select(m => new Thread(() => bag.Add(m.Length))).ToArray();
+            //foreach (var thread in threads)
+            //    thread.Start();
+
+            //System.Collections.Immutable.ImmutableDictionary<>
+
             //var threads = new Thread[messages.Length];
             //for (var i = 0; i < threads.Length; i++)
             //{
-            //    var i1 = i;
+            //    var i1 = i;   // ГРАБЛИ С ЗАМЫКАНИЕМ
             //    threads[i] = new Thread(() => PrinterThread(messages[i1]));
             //}
+
 
             //for(var i = 0; i < threads.Length; i++)
             //    threads[i].Start();
