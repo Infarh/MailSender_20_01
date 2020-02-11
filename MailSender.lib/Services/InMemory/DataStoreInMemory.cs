@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MailSender.lib.Entities.Base;
 using MailSender.lib.Services.Interfaces;
@@ -17,6 +18,8 @@ namespace MailSender.lib.Services.InMemory
 
         public int Create(T item)
         {
+            if (item is null) throw new ArgumentNullException(nameof(item));
+
             if (_Items.Contains(item)) return item.Id;
             item.Id = _Items.Count == 0
                 ? 1
