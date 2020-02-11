@@ -7,8 +7,10 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-           
+            //ThreadTests.Start();
+            //ThreadPoolTests.Start();
 
+            Console.ReadLine();
             Console.WriteLine("Приложение должно быть закрыто");
         }
     }
