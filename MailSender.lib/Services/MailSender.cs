@@ -1,5 +1,8 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Mail;
+using System.Threading;
 using MailSender.lib.Entities;
 
 namespace MailSender.lib.Services
@@ -21,6 +24,18 @@ namespace MailSender.lib.Services
                 using(var client = new SmtpClient(_Server.Address, _Server.Port) { EnableSsl = _Server.UseSSL, Credentials = login })
                     client.Send(message);
             }
+        }
+
+        public void Send(Mail Message, Sender From, IEnumerable<Recipient> To)
+        {
+            foreach (var recipient in To)
+                Send(Message, From, recipient);
+        }
+
+        public void SendParallel(Mail Message, Sender From, IEnumerable<Recipient> To)
+        {
+            foreach (var recipient in To)
+                ThreadPool.QueueUserWorkItem(_ => Send(Message, From, recipient));
         }
     }
 }
