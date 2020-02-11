@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using MailSender.lib.Entities.Base;
 
 namespace MailSender.lib.Entities
