@@ -42,6 +42,16 @@ namespace TestConsole
             //    //new ParallelOptions { MaxDegreeOfParallelism = 3 }, 
             //    Enumerable.Repeat(new Action(ParallelInvokeMethod), 100).ToArray());
 
+            //Parallel.For(0, 100, i => ParallelInvokeMethod($"Message {i}"));
+            //Parallel.For(0, 100, new ParallelOptions { MaxDegreeOfParallelism = 3 }, i => ParallelInvokeMethod($"Message {i}"));
+            var for_reslut = Parallel.For(0, 100, new ParallelOptions { MaxDegreeOfParallelism = 16 }, (i, state) =>
+            {
+                if (i > 15) state.Break();
+                ParallelInvokeMethod($"Message {i}");
+            });
+
+            Console.WriteLine("Выполнилось {0} итераций", for_reslut.LowestBreakIteration);
+
 
             Console.WriteLine("Главный поток завершился");
             Console.ReadLine();
@@ -53,6 +63,13 @@ namespace TestConsole
             Console.WriteLine("ThrID:{0} - started", Thread.CurrentThread.ManagedThreadId);
             Thread.Sleep(250);
             Console.WriteLine("ThrID:{0} - finished", Thread.CurrentThread.ManagedThreadId);
+        }
+
+        private static void ParallelInvokeMethod(string msg)
+        {
+            Console.WriteLine("ThrID:{0} - started: {1}", Thread.CurrentThread.ManagedThreadId, msg);
+            Thread.Sleep(250);
+            Console.WriteLine("ThrID:{0} - finished: {1}", Thread.CurrentThread.ManagedThreadId, msg);
         }
     }
 }
