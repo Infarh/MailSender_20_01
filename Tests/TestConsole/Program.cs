@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,16 +53,40 @@ namespace TestConsole
 
             //Console.WriteLine("Выполнилось {0} итераций", for_reslut.LowestBreakIteration);
 
-            var messages = Enumerable.Range(1, 100).Select(i => $"Message {i:000}");//.ToArray();
+            var messages = Enumerable.Range(1, 300).Select(i => $"Message {i}");//.ToArray();
 
             //Parallel.ForEach(messages, ParallelInvokeMethod);
             //Parallel.ForEach(messages, s => ParallelInvokeMethod(s));
-            var foreach_result = Parallel.ForEach(messages, (s, state) =>
-            {
-                if (s.EndsWith("20")) state.Break();
-                ParallelInvokeMethod(s);
-            });
-            Console.WriteLine("Выполнилось {0} итераций", foreach_result.LowestBreakIteration);
+            //var foreach_result = Parallel.ForEach(messages, (s, state) =>
+            //{
+            //    if (s.EndsWith("20")) state.Break();
+            //    ParallelInvokeMethod(s);
+            //});
+            //Console.WriteLine("Выполнилось {0} итераций", foreach_result.LowestBreakIteration);
+
+            //var cancellation = new CancellationTokenSource(millisecondsDelay: 3000);
+            //var long_creating_messages = messages
+            //   .AsParallel()
+            //   .WithDegreeOfParallelism(degreeOfParallelism: 3)
+            //   .WithMergeOptions(ParallelMergeOptions.FullyBuffered)
+            //   .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+            //   .WithCancellation(cancellation.Token)
+            //   .Select(m =>
+            //    {
+            //        Console.WriteLine("Запрос сообщения {0}", m);
+            //        Thread.Sleep(250);
+            //        Console.WriteLine("Сообщение {0} сформировано", m);
+            //        return m;
+            //    });
+
+            //var timer = Stopwatch.StartNew();
+            //var selected_messages = long_creating_messages
+            //   .Select(m => (msg: m, length: m.Length))
+            //   .AsSequential()
+            //   .Where(m => m.msg.EndsWith("20"))
+            //   .ToArray();
+            //timer.Stop();
+            //Console.WriteLine("Данные обработаны за {0}c", timer.Elapsed.TotalSeconds);
 
             Console.WriteLine("Главный поток завершился");
             Console.ReadLine();
