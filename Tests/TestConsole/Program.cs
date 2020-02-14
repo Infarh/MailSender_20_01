@@ -11,8 +11,10 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-             TPLTests.Start();
-             
+            //TPLTests.Start();
+            //TasksTest.Start();
+            //TasksTest.StartAsync();
+            TasksTest.StartDataProcessAsync();
 
             Console.WriteLine("Главный поток завершился");
             Console.ReadLine();
