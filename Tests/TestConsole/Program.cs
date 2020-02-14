@@ -44,14 +44,24 @@ namespace TestConsole
 
             //Parallel.For(0, 100, i => ParallelInvokeMethod($"Message {i}"));
             //Parallel.For(0, 100, new ParallelOptions { MaxDegreeOfParallelism = 3 }, i => ParallelInvokeMethod($"Message {i}"));
-            var for_reslut = Parallel.For(0, 100, new ParallelOptions { MaxDegreeOfParallelism = 16 }, (i, state) =>
+            //var for_reslut = Parallel.For(0, 100, new ParallelOptions { MaxDegreeOfParallelism = 16 }, (i, state) =>
+            //{
+            //    if (i > 15) state.Break();
+            //    ParallelInvokeMethod($"Message {i}");
+            //});
+
+            //Console.WriteLine("Выполнилось {0} итераций", for_reslut.LowestBreakIteration);
+
+            var messages = Enumerable.Range(1, 100).Select(i => $"Message {i:000}");//.ToArray();
+
+            //Parallel.ForEach(messages, ParallelInvokeMethod);
+            //Parallel.ForEach(messages, s => ParallelInvokeMethod(s));
+            var foreach_result = Parallel.ForEach(messages, (s, state) =>
             {
-                if (i > 15) state.Break();
-                ParallelInvokeMethod($"Message {i}");
+                if (s.EndsWith("20")) state.Break();
+                ParallelInvokeMethod(s);
             });
-
-            Console.WriteLine("Выполнилось {0} итераций", for_reslut.LowestBreakIteration);
-
+            Console.WriteLine("Выполнилось {0} итераций", foreach_result.LowestBreakIteration);
 
             Console.WriteLine("Главный поток завершился");
             Console.ReadLine();
