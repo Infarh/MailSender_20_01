@@ -7,10 +7,8 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            //ThreadTests.Start();
-            //ThreadPoolTests.Start();
-            SynchronizationTests.Start();
 
+            Console.WriteLine("Главный поток завершился");
             Console.ReadLine();
             Console.WriteLine("Приложение должно быть закрыто");
         }
