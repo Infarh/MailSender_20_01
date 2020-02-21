@@ -1,7 +1,10 @@
 ﻿using System.Windows;
+using CommonServiceLocator;
 using MailSender.lib.Data;
 using MailSender.lib.Entities;
 using MailSender.lib.Service;
+using MailSender.lib.Services.Interfaces;
+using MailSender.ViewModels;
 
 namespace MailSender
 {
@@ -17,6 +20,8 @@ namespace MailSender
 
         private void OnSendButtonClick(object Sender, RoutedEventArgs E)
         {
+            //var mailer = (IMailSenderService) ViewModelLocator.Services.GetService(typeof(IMailSenderService));
+
             //var recipient = RecipientsList.SelectedItem as Recipient;
             //var sender = SendersList.SelectedItem as Sender;
             //var server = ServersList.SelectedItem as Server;

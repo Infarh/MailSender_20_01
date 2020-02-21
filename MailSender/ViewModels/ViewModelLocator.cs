@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using MailSender.Infrastructure.Services;
@@ -17,6 +18,8 @@ namespace MailSender.ViewModels
 {
     public class ViewModelLocator
     {
+        //public static IServiceProvider Services => SimpleIoc.Default;
+
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -34,6 +37,8 @@ namespace MailSender.ViewModels
 
             var services = SimpleIoc.Default;
 
+            services.Register(() => App.Configuration);
+
             services.Register<MainWindowViewModel>();
 
             services.Register<IRecipientsManager, RecipientsManager>();
@@ -49,6 +54,18 @@ namespace MailSender.ViewModels
             services.Register<MailSenderDB>();
             services.Register(() => new DbContextOptionsBuilder<MailSenderDB>()
                .UseSqlServer(App.Configuration.GetConnectionString("DefaultConnection")).Options);
+            services.Register<MailSenderDBInitializer>();
+
+#if DEBUG
+            services.Register<IMailSenderService, DebugMailSenderService>();
+#else
+            services.Register<IMailSenderService, MailSenderService>();
+#endif
+
+
+            var db_initializer = (MailSenderDBInitializer) services.GetService(typeof(MailSenderDBInitializer));
+            var initialize_task = Task.Run(() => db_initializer.InitializeAsync());  // Уходим от удара граблей в следующей строке ниже!!!
+            initialize_task.Wait();
         }
 
         public MainWindowViewModel MainWindowModel => ServiceLocator.Current.GetInstance<MainWindowViewModel>();

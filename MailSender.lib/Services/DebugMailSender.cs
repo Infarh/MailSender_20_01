@@ -1,11 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using MailSender.lib.Entities;
+using MailSender.lib.Services.Interfaces;
 
 namespace MailSender.lib.Services
 {
-    public class DebugMailSender
+    public class DebugMailSenderService : IMailSenderService
+    {
+        public IMailSender GetSender(Server Server) => new DebugMailSender(Server);
+    }
+
+    public class DebugMailSender : IMailSender
     {
         private readonly Server _Server;
 
@@ -22,6 +29,18 @@ namespace MailSender.lib.Services
         {
             foreach (var recipient in To)
                 Send(Message, From, recipient);
+        }
+
+        public Task SendAsync(Mail Mail, Sender From, Recipient To)
+        {
+            Send(Mail, From, To);
+            return Task.CompletedTask;
+        }
+
+        public Task SendAsync(Mail Message, Sender From, IEnumerable<Recipient> To, CancellationToken Cancel = default)
+        {
+            Send(Message, From, To);
+            return Task.CompletedTask;
         }
 
         public void SendParallel(Mail Message, Sender From, IEnumerable<Recipient> To)
