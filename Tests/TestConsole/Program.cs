@@ -5,6 +5,8 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection;
 
+using System.Linq.Expressions;
+
 namespace TestConsole
 {
     class Program
@@ -115,6 +117,32 @@ namespace TestConsole
             };
 
             Process(values);
+
+            Expression<Func<string, int>> expr = s => s.Length;
+
+
+            var string_len_calc = expr.Compile();
+            var len = string_len_calc("Hello World!");
+
+            var x_parameter = Expression.Parameter(typeof(int), "x");
+            var y_parameter = Expression.Parameter(typeof(int), "y");
+
+            var body = Expression.Add(x_parameter, y_parameter);
+
+            var sum_expr = Expression.Lambda<Func<int, int, int>>(body, new[] {x_parameter, y_parameter});
+
+            var sum_method = sum_expr.Compile();
+            var result = sum_method(5, 7);
+
+            var str_parameter = Expression.Parameter(typeof(string), "str");
+
+            var str_len_expr = Expression.Property(str_parameter, "Length");
+
+            var body2 = Expression.Add(str_len_expr, y_parameter);
+            var sum2_expr = Expression.Lambda<Func<string, int, int>>(body2, new[] { str_parameter, y_parameter });
+            var sum2_method = sum2_expr.Compile();
+
+            var result2 = sum2_method("QWE123098", 5);
 
             Console.WriteLine("!!!");
             Console.ReadLine();
