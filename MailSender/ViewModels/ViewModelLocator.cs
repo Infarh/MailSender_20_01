@@ -5,9 +5,13 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using MailSender.Infrastructure.Services;
 using MailSender.Infrastructure.Services.Interfaces;
+using MailSender.lib.Data.EF;
 using MailSender.lib.Services;
+using MailSender.lib.Services.EF;
 using MailSender.lib.Services.InMemory;
 using MailSender.lib.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MailSender.ViewModels
 {
@@ -34,12 +38,17 @@ namespace MailSender.ViewModels
 
             services.Register<IRecipientsManager, RecipientsManager>();
 
-            services.Register<IRecipientsStore, RecipientsStoreInMemory>();
+            //services.Register<IRecipientsStore, RecipientsStoreInMemory>();
+            services.Register<IRecipientsStore, RecipientsStoreEF>();
             services.Register<ISendersStore, SendersStoreInMemory>();
             services.Register<IServersStore, ServersStoreInMemory>();
             services.Register<IMailsStore, MailsStoreInMemory>();
 
             services.Register<ISenderEditor, WindowSenderEditor>();
+
+            services.Register<MailSenderDB>();
+            services.Register(() => new DbContextOptionsBuilder<MailSenderDB>()
+               .UseSqlServer(App.Configuration.GetConnectionString("DefaultConnection")).Options);
         }
 
         public MainWindowViewModel MainWindowModel => ServiceLocator.Current.GetInstance<MainWindowViewModel>();
