@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
