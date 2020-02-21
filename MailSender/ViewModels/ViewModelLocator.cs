@@ -18,6 +18,8 @@ namespace MailSender.ViewModels
 {
     public class ViewModelLocator
     {
+        //public static IServiceProvider Services => SimpleIoc.Default;
+
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
